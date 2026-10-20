@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lore Gizlilik ve Koşullar</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #faf6ef;
+    --surface: #ffffff;
+    --surface-2: #f1ebe0;
+    --fg: #1c1a17;
+    --muted: #6f6659;
+    --accent: #0d9488;
+    --accent-fg: #ffffff;
+    --border: #e4dccd;
+    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #000000;
+      --surface: #141210;
+      --surface-2: #1d1a17;
+      --fg: #f6ecdd;
+      --muted: #a79a86;
+      --accent: #2dd4bf;
+      --accent-fg: #06201d;
+      --border: #2a2520;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #000000;
+    --surface: #141210;
+    --surface-2: #1d1a17;
+    --fg: #f6ecdd;
+    --muted: #a79a86;
+    --accent: #2dd4bf;
+    --accent-fg: #06201d;
+    --border: #2a2520;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--bg);
+    padding-block: 18px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .brand .mark {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 0.01em;
+  }
+  .brand .mark span { color: var(--accent); }
+  .meta-line {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .switches { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .switch-group {
+    display: inline-flex;
+    background: var(--surface-2);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+    border: 1px solid var(--border);
+  }
+  .switch-group button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 12.5px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .switch-group button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+  .switch-group button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  main { padding-block: 28px 64px; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(26px, 5vw, 34px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  .doc-sub {
+    color: var(--muted);
+    font-size: 13.5px;
+    margin: 0 0 28px;
+  }
+  .doc { max-width: 65ch; }
+  .doc h3, .doc p.subhead {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    margin: 28px 0 8px;
+  }
+  .doc > *:first-child { margin-top: 0; }
+  .doc p { margin: 0 0 12px; }
+  .doc ul { margin: 0 0 14px; padding-left: 20px; }
+  .doc li { margin-bottom: 6px; }
+
+  .contact-card {
+    margin-top: 40px;
+    padding: 18px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .contact-card .label { font-size: 12.5px; color: var(--muted); }
+  .contact-card .email {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    user-select: all;
+  }
+  .contact-card button {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .contact-card button:hover { border-color: var(--accent); }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  [hidden] { display: none !important; }
+
+  @media (max-width: 480px) {
+    .brand { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="mark">lo<span>re</span></div>
+      <div class="meta-line" id="metaLine">Son güncelleme: 2026</div>
+    </div>
+    <div class="switches">
+      <div class="switch-group" role="tablist" aria-label="Belge / Document">
+        <button type="button" data-doc="privacy" aria-pressed="true">Gizlilik Politikası</button>
+        <button type="button" data-doc="terms" aria-pressed="false">Kullanım Koşulları</button>
+      </div>
+      <div class="switch-group" role="tablist" aria-label="Dil / Language">
+        <button type="button" data-lang="tr" aria-pressed="true">TR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 id="docTitle">Gizlilik Politikası</h1>
+    <p class="doc-sub" id="docSub">Lore uygulamasının kişisel verilerinizi nasıl işlediğini açıklar.</p>
+    <div class="doc" id="docBody">
+      <p class="subhead">Veri sorumlusunun kimliği (KVKK Madde 10 uyarınca):</p>
+      <p>Bu uygulamanın (Lore) veri sorumlusu, uygulamanın bağımsız geliştiricisidir. Kişisel verilerinizle ilgili her türlü soru ve talebiniz için lore.app01@gmail.com adresinden veya Ayarlar &gt; Bize Ulaşın üzerinden doğrudan veri sorumlusuna ulaşabilirsiniz.</p>
+      <p class="subhead">Hangi veriler toplanıyor:</p>
+      <ul>
+        <li>E-posta adresiniz ve kullanıcı adınız (hesap oluşturma için)</li>
+        <li>Takip ettiğiniz dizi/film/kitap/oyunlar, izleme/okuma durumunuz, puanlarınız ve notlarınız</li>
+        <li>Yazdığınız yorumlar ve beğeniler</li>
+        <li>Takip ettiğiniz/takipçi olduğunuz kullanıcılar ve engellediğiniz kullanıcılar</li>
+        <li>İsteğe bağlı olarak yüklediğiniz profil fotoğrafı</li>
+        <li>Uygulama içi kullanım verisi (hangi özellikleri kullandığınız, hata kayıtları gibi teknik veriler)</li>
+      </ul>
+      <p class="subhead">Toplama amacı:</p>
+      <ul>
+        <li>Hesabınızı oluşturmak ve güvenli girişinizi sağlamak</li>
+        <li>Uygulamanın temel işlevlerini (takip, istatistik, öneri, hatırlatma) sunmak</li>
+        <li>Diğer kullanıcılara profilinizde genel istatistiklerinizi ve takip listelerinizi göstermek (kişisel notlarınız asla başkalarına gösterilmez)</li>
+        <li>Size takip/beğeni bildirimleri göstermek</li>
+        <li>Uygulamayı iyileştirmek ve teknik sorunları tespit etmek</li>
+      </ul>
+      <p class="subhead">Üçüncü taraflarla paylaşım:</p>
+      <ul>
+        <li>Verileriniz üçüncü taraflara satılmaz veya pazarlama amacıyla paylaşılmaz</li>
+        <li>Dizi/film/kitap/oyun arama ve içerik bilgisi için TMDB, RAWG ve Google Books API'lerine istek gönderilir; bu isteklerde SADECE aradığınız içeriğin adı/kimliği iletilir — e-posta adresiniz, kullanıcı adınız veya başka bir kişisel veriniz bu servislere HİÇBİR ZAMAN gönderilmez</li>
+        <li>Kullanıcı adınız, yorumlarınız ve herkese açık listeleriniz uygulama içinde diğer kullanıcılara açıktır (kişisel notlarınız hariç)</li>
+      </ul>
+      <p class="subhead">Veri saklama süresi:</p>
+      <ul>
+        <li>Verileriniz, hesabınız aktif olduğu sürece saklanır, ayrı bir otomatik silme süresi uygulanmaz</li>
+        <li>Ayarlar &gt; Hesabı Sil ile hesabınızı sildiğinizde tüm verileriniz (girişleriniz, yorumlarınız, listeleriniz, takip ilişkileriniz, profil fotoğrafınız) anında ve kalıcı olarak silinir, geri getirilemez</li>
+      </ul>
+      <p class="subhead">Takip ve reklam:</p>
+      <ul>
+        <li>Bu uygulama sizi başka uygulamalar veya web siteleri arasında takip etmez, cihaz reklam kimliğinizi (IDFA) toplamaz</li>
+        <li>Verileriniz reklam şirketlerine satılmaz veya reklam amacıyla paylaşılmaz — bu yüzden Apple'ın "İzin İste" (App Tracking Transparency) uyarısı bu uygulamada karşınıza çıkmaz</li>
+      </ul>
+      <p class="subhead">Haklarınız (KVKK Madde 11 / GDPR kapsamında):</p>
+      <ul>
+        <li>Verilerinizin işlenip işlenmediğini öğrenme, işlenmişse buna ilişkin bilgi talep etme</li>
+        <li>Verilerinize erişim, düzeltme veya silinmesini talep etme</li>
+        <li>Yukarıdaki taleplerinizi lore.app01@gmail.com adresinden veya Ayarlar &gt; Bize Ulaşın üzerinden iletebilirsiniz, talepler makul bir sürede yanıtlanır</li>
+        <li>Ayarlar &gt; Hesabı Sil yoluyla tüm verilerinizi kendiniz de anında ve kalıcı olarak silebilirsiniz</li>
+        <li>E-posta adresinizi ve şifrenizi Ayarlar'dan güncelleyebilirsiniz</li>
+      </ul>
+      <p>Sorularınız için lore.app01@gmail.com adresinden veya Ayarlar &gt; Bize Ulaşın üzerinden uygulama geliştiricisiyle doğrudan iletişime geçebilirsiniz.</p>
+    </div>
+
+    <div class="contact-card">
+      <div>
+        <div class="label" id="contactLabel">Sorular için</div>
+        <div class="email">lore.app01@gmail.com</div>
+      </div>
+      <button type="button" id="copyBtn">Kopyala</button>
+    </div>
+
+    <footer id="footerNote">Lore — dizi, film, kitap ve oyun takibi için kişisel bir uygulama.</footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var TERMS = {
+    tr: [
+      "Son güncelleme: 2026",
+      "1. Uygulamayı kullanarak bu koşulları kabul etmiş olursunuz.",
+      "2. Bu uygulama 13 yaşından küçükler tarafından kullanılamaz. Hesap oluşturarak 13 yaşından büyük olduğunuzu beyan etmiş olursunuz.",
+      "3. Bu uygulama kişisel bir dizi/film/kitap/oyun takip aracıdır. İçerik verileri TMDB, OpenLibrary, Google Books ve RAWG API'lerinden alınır; bu içeriklerin doğruluğundan ilgili kaynaklar sorumludur.",
+      "4. Kullanılan üçüncü taraf veri kaynakları: Dizi/film verileri ve görselleri The Movie Database (TMDB) tarafından sağlanmaktadır — bu ürün TMDB API'sini kullanır ancak TMDB tarafından onaylanmamış veya sertifikalandırılmamıştır. Kitap verileri Google Books ve OpenLibrary, oyun verileri RAWG Video Games Database tarafından sağlanmaktadır. Bu servislerin her biri kendi kullanım şartlarına tabidir.",
+      "5. Yorumlar, listeler ve profil bilgileri gibi kullanıcı içerikli verilerin sorumluluğu kullanıcıya aittir. Uygunsuz, yasa dışı veya başkalarını rahatsız edici içerik paylaşmak yasaktır.",
+      "6. Bir kullanıcıyı engelleme ve yorum şikayet etme özellikleri, topluluk güvenliğini sağlamak için sunulur. Kötüye kullanım tespit edilirse veya bu koşullar ihlal edilirse hesabınız kısıtlanabilir ya da kapatılabilir.",
+      "7. Uygulama \"olduğu gibi\" sunulur, kesintisiz veya hatasız çalışacağı garanti edilmez.",
+      "8. Hesabınızı istediğiniz zaman Ayarlar > Hesabı Sil yoluyla kalıcı olarak silebilirsiniz.",
+      "9. Reklam amaçlı takip yapılmaz, verileriniz reklam şirketlerine satılmaz veya paylaşılmaz; App Store'un \"İzleme Şeffaflığı\" (App Tracking Transparency) izni bu yüzden istenmez.",
+      "10. Bu koşullar zaman zaman güncellenebilir.",
+      "11. Sorularınız veya bu koşullarla ilgili talepleriniz için lore.app01@gmail.com adresinden veya Ayarlar > Bize Ulaşın üzerinden bize ulaşabilirsiniz.",
+      "12. Uygulamayı App Store üzerinden indirdiyseniz, Apple ile aranızdaki ilişki hakkında:\n- Bu kullanım koşulları sizinle Apple arasında değil, sizinle uygulamanın geliştiricisi arasındadır. Apple bu sözleşmenin tarafı değildir.\n- Uygulamanın bakımı, desteği ve olası sorunların çözümü Apple'ın değil, geliştiricinin sorumluluğundadır.\n- Uygulamayla ilgili bir ürün sorumluluğu, yasal uyumluluk veya fikri mülkiyet iddiası doğarsa bundan geliştirici sorumludur, Apple değil.\n- Buna rağmen Apple, bu koşullara uymadığınız durumlarda bunları size karşı uygulama hakkına sahiptir (App Store'un standart kuralı gereği)."
+    ],
+    en: [
+      "Last updated: 2026",
+      "1. By using the app, you agree to these terms.",
+      "2. This app cannot be used by anyone under the age of 13. By creating an account, you confirm that you are over 13.",
+      "3. This app is a personal tool for tracking shows, movies, books, and games. Content data comes from the TMDB, OpenLibrary, Google Books, and RAWG APIs; the accuracy of that content is the responsibility of those sources.",
+      "4. Third-party data sources used: Show/movie data and images are provided by The Movie Database (TMDB) — this product uses the TMDB API but is not endorsed or certified by TMDB. Book data is provided by Google Books and OpenLibrary, and game data by the RAWG Video Games Database. Each of these services is subject to its own terms of use.",
+      "5. Responsibility for user-generated content such as comments, lists, and profile information belongs to the user. Sharing inappropriate, illegal, or harassing content is prohibited.",
+      "6. Blocking a user and reporting a comment are provided to keep the community safe. Your account may be restricted or closed if misuse is detected or these terms are violated.",
+      "7. The app is provided \"as is\"; uninterrupted or error-free operation is not guaranteed.",
+      "8. You can permanently delete your account at any time via Settings > Delete Account.",
+      "9. No tracking is done for advertising purposes, and your data is not sold or shared with advertising companies; this is why the App Store's \"App Tracking Transparency\" permission is not requested.",
+      "10. These terms may be updated from time to time.",
+      "11. For questions or requests regarding these terms, you can reach us at lore.app01@gmail.com or via Settings > Contact Us.",
+      "12. If you downloaded the app via the App Store, regarding your relationship with Apple:\n- These terms of use are between you and the app's developer, not between you and Apple. Apple is not a party to this agreement.\n- The maintenance, support, and resolution of any issues with the app are the developer's responsibility, not Apple's.\n- If any product liability, legal compliance, or intellectual property claim arises regarding the app, the developer is responsible for it, not Apple.\n- Nevertheless, Apple has the right to enforce these terms against you if you fail to comply with them (per the App Store's standard rule)."
+    ]
+  };
+
+  var PRIVACY = {
+    tr: [
+      "Son güncelleme: 2026",
+      "Veri sorumlusunun kimliği (KVKK Madde 10 uyarınca):\nBu uygulamanın (Lore) veri sorumlusu, uygulamanın bağımsız geliştiricisidir. Kişisel verilerinizle ilgili her türlü soru ve talebiniz için lore.app01@gmail.com adresinden veya Ayarlar > Bize Ulaşın üzerinden doğrudan veri sorumlusuna ulaşabilirsiniz.",
+      "Hangi veriler toplanıyor:\n- E-posta adresiniz ve kullanıcı adınız (hesap oluşturma için)\n- Takip ettiğiniz dizi/film/kitap/oyunlar, izleme/okuma durumunuz, puanlarınız ve notlarınız\n- Yazdığınız yorumlar ve beğeniler\n- Takip ettiğiniz/takipçi olduğunuz kullanıcılar ve engellediğiniz kullanıcılar\n- İsteğe bağlı olarak yüklediğiniz profil fotoğrafı\n- Uygulama içi kullanım verisi (hangi özellikleri kullandığınız, hata kayıtları gibi teknik veriler)",
+      "Toplama amacı:\n- Hesabınızı oluşturmak ve güvenli girişinizi sağlamak\n- Uygulamanın temel işlevlerini (takip, istatistik, öneri, hatırlatma) sunmak\n- Diğer kullanıcılara profilinizde genel istatistiklerinizi ve takip listelerinizi göstermek (kişisel notlarınız asla başkalarına gösterilmez)\n- Size takip/beğeni bildirimleri göstermek\n- Uygulamayı iyileştirmek ve teknik sorunları tespit etmek",
+      "Üçüncü taraflarla paylaşım:\n- Verileriniz üçüncü taraflara satılmaz veya pazarlama amacıyla paylaşılmaz\n- Dizi/film/kitap/oyun arama ve içerik bilgisi için TMDB, RAWG ve Google Books API'lerine istek gönderilir; bu isteklerde SADECE aradığınız içeriğin adı/kimliği iletilir — e-posta adresiniz, kullanıcı adınız veya başka bir kişisel veriniz bu servislere HİÇBİR ZAMAN gönderilmez\n- Kullanıcı adınız, yorumlarınız ve herkese açık listeleriniz uygulama içinde diğer kullanıcılara açıktır (kişisel notlarınız hariç)",
+      "Veri saklama süresi:\n- Verileriniz, hesabınız aktif olduğu sürece saklanır, ayrı bir otomatik silme süresi uygulanmaz\n- Ayarlar > Hesabı Sil ile hesabınızı sildiğinizde tüm verileriniz (girişleriniz, yorumlarınız, listeleriniz, takip ilişkileriniz, profil fotoğrafınız) anında ve kalıcı olarak silinir, geri getirilemez",
+      "Takip ve reklam:\n- Bu uygulama sizi başka uygulamalar veya web siteleri arasında takip etmez, cihaz reklam kimliğinizi (IDFA) toplamaz\n- Verileriniz reklam şirketlerine satılmaz veya reklam amacıyla paylaşılmaz — bu yüzden Apple'ın \"İzin İste\" (App Tracking Transparency) uyarısı bu uygulamada karşınıza çıkmaz",
+      "Haklarınız (KVKK Madde 11 / GDPR kapsamında):\n- Verilerinizin işlenip işlenmediğini öğrenme, işlenmişse buna ilişkin bilgi talep etme\n- Verilerinize erişim, düzeltme veya silinmesini talep etme\n- Yukarıdaki taleplerinizi lore.app01@gmail.com adresinden veya Ayarlar > Bize Ulaşın üzerinden iletebilirsiniz, talepler makul bir sürede yanıtlanır\n- Ayarlar > Hesabı Sil yoluyla tüm verilerinizi kendiniz de anında ve kalıcı olarak silebilirsiniz\n- E-posta adresinizi ve şifrenizi Ayarlar'dan güncelleyebilirsiniz",
+      "Sorularınız için lore.app01@gmail.com adresinden veya Ayarlar > Bize Ulaşın üzerinden uygulama geliştiricisiyle doğrudan iletişime geçebilirsiniz."
+    ],
+    en: [
+      "Last updated: 2026",
+      "Identity of the data controller (pursuant to KVKK Article 10):\nThe data controller for this app (Lore) is the app's independent developer. For any questions or requests regarding your personal data, you can reach the data controller directly at lore.app01@gmail.com or via Settings > Contact Us.",
+      "What data is collected:\n- Your email address and username (for account creation)\n- The shows/movies/books/games you track, your watch/read status, ratings, and notes\n- The comments and likes you write\n- Users you follow/are followed by, and users you block\n- The profile picture you optionally upload\n- In-app usage data (technical data such as which features you use and error logs)",
+      "Purpose of collection:\n- To create your account and provide secure sign-in\n- To provide the app's core features (tracking, statistics, recommendations, reminders)\n- To show other users your general statistics and tracking lists on your profile (your personal notes are never shown to others)\n- To show you follow/like notifications\n- To improve the app and identify technical issues",
+      "Sharing with third parties:\n- Your data is not sold to third parties or shared for marketing purposes\n- Requests are sent to the TMDB, RAWG, and Google Books APIs for show/movie/book/game search and content information; these requests contain ONLY the name/ID of the content you searched for — your email address, username, or any other personal data is NEVER sent to these services\n- Your username, comments, and public lists are visible to other users within the app (except your personal notes)",
+      "Data retention period:\n- Your data is retained for as long as your account is active; no separate automatic deletion period is applied\n- When you delete your account via Settings > Delete Account, all your data (your entries, comments, lists, follow relationships, profile picture) is deleted immediately and permanently, and cannot be recovered",
+      "Tracking and advertising:\n- This app does not track you across other apps or websites, and does not collect your device advertising identifier (IDFA)\n- Your data is not sold to advertising companies or shared for advertising purposes — this is why Apple's \"Ask App Not to Track\" (App Tracking Transparency) prompt does not appear in this app",
+      "Your rights (under KVKK Article 11 / GDPR):\n- To learn whether your data is being processed, and if so, to request information about it\n- To request access to, correction of, or deletion of your data\n- You can submit the above requests at lore.app01@gmail.com or via Settings > Contact Us; requests are answered within a reasonable time\n- You can also instantly and permanently delete all your data yourself via Settings > Delete Account\n- You can update your email address and password from Settings",
+      "For questions, you can contact the app developer directly at lore.app01@gmail.com or via Settings > Contact Us."
+    ]
+  };
+
+  var STRINGS = {
+    tr: {
+      privacyTitle: "Gizlilik Politikası",
+      privacySub: "Lore uygulamasının kişisel verilerinizi nasıl işlediğini açıklar.",
+      termsTitle: "Kullanım Koşulları",
+      termsSub: "Lore uygulamasını kullanırken geçerli olan kurallar.",
+      docPrivacy: "Gizlilik Politikası",
+      docTerms: "Kullanım Koşulları",
+      contactLabel: "Sorular için",
+      copy: "Kopyala",
+      copied: "Kopyalandı",
+      footer: "Lore — dizi, film, kitap ve oyun takibi için kişisel bir uygulama."
+    },
+    en: {
+      privacyTitle: "Privacy Policy",
+      privacySub: "Explains how the Lore app processes your personal data.",
+      termsTitle: "Terms of Service",
+      termsSub: "The rules that apply when you use the Lore app.",
+      docPrivacy: "Privacy Policy",
+      docTerms: "Terms of Service",
+      contactLabel: "For questions",
+      copy: "Copy",
+      copied: "Copied",
+      footer: "Lore — a personal app for tracking shows, movies, books, and games."
+    }
+  };
+
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function renderParagraph(text) {
+    var lines = text.split("\n");
+    var html = "";
+    var isHeading = lines.length > 1 && lines[0].trim().slice(-1) === ":";
+    html += (isHeading ? "<p class=\"subhead\">" : "<p>") + esc(lines[0]) + "</p>";
+    var bullets = [];
+    function flush() {
+      if (bullets.length) {
+        html += "<ul>" + bullets.map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul>";
+        bullets = [];
+      }
+    }
+    for (var i = 1; i < lines.length; i++) {
+      var line = lines[i];
+      if (line.slice(0, 2) === "- ") {
+        bullets.push(line.slice(2));
+      } else {
+        flush();
+        if (line.trim()) html += "<p>" + esc(line) + "</p>";
+      }
+    }
+    flush();
+    return html;
+  }
+
+  var state = { doc: "privacy", lang: "tr" };
+  try {
+    var saved = JSON.parse(localStorage.getItem("lore-legal-state") || "{}");
+    if (saved.doc === "privacy" || saved.doc === "terms") state.doc = saved.doc;
+    if (saved.lang === "tr" || saved.lang === "en") state.lang = saved.lang;
+  } catch (e) {}
+
+  var hash = (location.hash || "").replace("#", "");
+  if (hash) {
+    var parts = hash.split("-");
+    if (parts[0] === "privacy" || parts[0] === "terms") state.doc = parts[0];
+    if (parts[1] === "tr" || parts[1] === "en") state.lang = parts[1];
+  }
+
+  var docTitleEl = document.getElementById("docTitle");
+  var docSubEl = document.getElementById("docSub");
+  var docBodyEl = document.getElementById("docBody");
+  var metaLineEl = document.getElementById("metaLine");
+  var contactLabelEl = document.getElementById("contactLabel");
+  var copyBtn = document.getElementById("copyBtn");
+  var footerEl = document.getElementById("footerNote");
+  var docBtns = document.querySelectorAll("[data-doc]");
+  var langBtns = document.querySelectorAll("[data-lang]");
+
+  function render() {
+    var s = STRINGS[state.lang];
+    var data = state.doc === "terms" ? TERMS[state.lang] : PRIVACY[state.lang];
+    docTitleEl.textContent = state.doc === "terms" ? s.termsTitle : s.privacyTitle;
+    docSubEl.textContent = state.doc === "terms" ? s.termsSub : s.privacySub;
+    metaLineEl.textContent = data[0];
+    docBodyEl.innerHTML = data.slice(1).map(renderParagraph).join("");
+    contactLabelEl.textContent = s.contactLabel;
+    copyBtn.textContent = s.copy;
+    footerEl.textContent = s.footer;
+    document.title = "Lore " + (state.doc === "terms" ? s.termsTitle : s.privacyTitle);
+
+    docBtns.forEach(function (btn) {
+      var isPrivacy = btn.getAttribute("data-doc") === "privacy";
+      btn.textContent = isPrivacy ? s.docPrivacy : s.docTerms;
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-doc") === state.doc ? "true" : "false");
+    });
+    langBtns.forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang") === state.lang ? "true" : "false");
+    });
+
+    try { localStorage.setItem("lore-legal-state", JSON.stringify(state)); } catch (e) {}
+    try { history.replaceState(null, "", "#" + state.doc + "-" + state.lang); } catch (e) {}
+  }
+
+  docBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      state.doc = btn.getAttribute("data-doc");
+      render();
+    });
+  });
+  langBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      state.lang = btn.getAttribute("data-lang");
+      render();
+    });
+  });
+
+  copyBtn.addEventListener("click", function () {
+    var s = STRINGS[state.lang];
+    var email = "lore.app01@gmail.com";
+    function done() {
+      copyBtn.textContent = s.copied;
+      setTimeout(function () { copyBtn.textContent = s.copy; }, 1500);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(done).catch(function () {
+        var range = document.createRange();
+        range.selectNodeContents(document.querySelector(".contact-card .email"));
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

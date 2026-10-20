@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lore - E-posta Onayı</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #faf6ef;
+    --fg: #1c1a17;
+    --muted: #6f6659;
+    --accent: #0d9488;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #000000;
+      --fg: #f6ecdd;
+      --muted: #a79a86;
+      --accent: #2dd4bf;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #000000;
+    --fg: #f6ecdd;
+    --muted: #a79a86;
+    --accent: #2dd4bf;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  }
+  .card { max-width: 420px; text-align: center; }
+  .mark { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 20px; margin-bottom: 28px; }
+  .mark span { color: var(--accent); }
+  .badge {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .badge svg { width: 30px; height: 30px; }
+  h1 { font-size: 20px; margin: 0 0 8px; }
+  p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0; }
+  p + p { margin-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="mark">lo<span>re</span></div>
+    <div class="badge" id="badge">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 13l4 4L19 7" stroke="#06201d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1 id="title">E-posta adresin onaylandı</h1>
+    <p id="sub1">Bu sekmeyi kapatıp Lore uygulamasına dönebilirsin.</p>
+    <p id="sub2">Your email has been confirmed. You can close this tab and return to the Lore app.</p>
+  </div>
+  <script>
+    (function () {
+      var params = new URLSearchParams((location.hash || '').replace('#', ''));
+      var error = params.get('error');
+      var errorCode = params.get('error_code');
+      var type = params.get('type');
+      var title = document.getElementById('title');
+      var sub1 = document.getElementById('sub1');
+      var sub2 = document.getElementById('sub2');
+      var badge = document.getElementById('badge');
+
+      if (error) {
+        badge.style.background = '#e05252';
+        badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8v5M12 16h.01" stroke="#2a0b0b" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#2a0b0b" stroke-width="2"/></svg>';
+        if (errorCode === 'otp_expired') {
+          title.textContent = 'Bağlantının süresi dolmuş';
+          sub1.textContent = 'Lore uygulamasına dönüp işlemi (şifre sıfırlama veya e-posta onayı) tekrar başlatman gerekiyor.';
+          sub2.textContent = 'This link has expired. Please go back to the Lore app and start the process again.';
+        } else {
+          title.textContent = 'Bir sorun oluştu';
+          sub1.textContent = 'Lore uygulamasına dönüp tekrar dener misin?';
+          sub2.textContent = 'Something went wrong. Please go back to the Lore app and try again.';
+        }
+      } else if (type === 'recovery') {
+        title.textContent = 'Şifre sıfırlama onaylandı';
+        sub1.textContent = 'Lore uygulamasına dönüp yeni şifreni belirleyebilirsin.';
+        sub2.textContent = 'Password reset confirmed. You can return to the Lore app to set your new password.';
+      }
+    })();
+  </script>
+</body>
+</html>
