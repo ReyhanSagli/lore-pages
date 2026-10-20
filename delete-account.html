@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lore - Hesap Silme</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #faf6ef;
+    --surface: #ffffff;
+    --surface-2: #f1ebe0;
+    --fg: #1c1a17;
+    --muted: #6f6659;
+    --accent: #0d9488;
+    --border: #e4dccd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #000000;
+      --surface: #141210;
+      --surface-2: #1d1a17;
+      --fg: #f6ecdd;
+      --muted: #a79a86;
+      --accent: #2dd4bf;
+      --border: #2a2520;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #000000;
+    --surface: #141210;
+    --surface-2: #1d1a17;
+    --fg: #f6ecdd;
+    --muted: #a79a86;
+    --accent: #2dd4bf;
+    --border: #2a2520;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    padding: max(16px, env(safe-area-inset-left, 0px));
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding-block: 32px 64px; }
+  .mark { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 20px; margin-bottom: 28px; }
+  .mark span { color: var(--accent); }
+  h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 26px; margin: 0 0 8px; }
+  .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 28px; }
+  h2 { font-size: 17px; margin: 28px 0 10px; }
+  p { margin: 0 0 12px; }
+  ol, ul { margin: 0 0 16px; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  .card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    margin-top: 24px;
+  }
+  .email { font-family: monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mark">lo<span>re</span></div>
+  <h1>Hesabını ve verilerini sil</h1>
+  <p class="sub">Lore uygulamasındaki hesabını kalıcı olarak nasıl silebileceğini açıklar.</p>
+
+  <h2>Uygulama içinden silme (önerilen)</h2>
+  <ol>
+    <li>Lore uygulamasını aç ve giriş yap.</li>
+    <li><strong>Profil</strong> sekmesine git.</li>
+    <li>Sağ üstteki <strong>Ayarlar</strong> ikonuna dokun.</li>
+    <li>En altta <strong>"Hesabı Sil"</strong> butonuna dokun ve onayla.</li>
+  </ol>
+  <p>Bu işlem anında gerçekleşir, ek bir bekleme süresi veya onay e-postası gerekmez.</p>
+
+  <h2>Uygulamaya erişimin yoksa</h2>
+  <p>
+    Uygulamayı silmişsen veya hesabına giriş yapamıyorsan, hesabının kayıtlı olduğu e-posta adresinden
+    <a href="mailto:lore.app01@gmail.com">lore.app01@gmail.com</a> adresine yazarak hesabının silinmesini
+    talep edebilirsin. Talebin makul bir sürede (genellikle birkaç gün içinde) işleme alınır.
+  </p>
+
+  <div class="card">
+    <h2 style="margin-top:0">Ne siliniyor, ne kadar süre saklanıyor</h2>
+    <p>Hesabını sildiğinde aşağıdakilerin <strong>tamamı anında ve kalıcı olarak</strong> silinir, geri getirilemez:</p>
+    <ul>
+      <li>Hesap bilgilerin (e-posta, kullanıcı adı, şifre)</li>
+      <li>Takip ettiğin dizi/film/kitap/oyun kayıtların, izleme/okuma durumların, puanların ve kişisel notların</li>
+      <li>Yazdığın yorumlar ve beğeniler</li>
+      <li>Takip/takipçi ilişkilerin ve engelleme listen</li>
+      <li>Profil fotoğrafın</li>
+      <li>Oluşturduğun listeler</li>
+    </ul>
+    <p>Ek bir saklama süresi uygulanmaz — hesap aktif olduğu sürece veriler saklanır, silme talebiyle birlikte anında kalıcı olarak silinir.</p>
+  </div>
+
+  <p style="margin-top:28px; color:var(--muted); font-size:13px;">
+    Sorular için: <span class="email">lore.app01@gmail.com</span>
+  </p>
+</div>
+</body>
+</html>
