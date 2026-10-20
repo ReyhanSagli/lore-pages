@@ -69,6 +69,7 @@
     <h1 id="title">E-posta adresin onaylandı</h1>
     <p id="sub1">Bu sekmeyi kapatıp Lore uygulamasına dönebilirsin.</p>
     <p id="sub2">Your email has been confirmed. You can close this tab and return to the Lore app.</p>
+    <a id="openAppBtn" href="#" style="display:none;margin-top:20px;background:#0d9488;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 28px;border-radius:999px;">Uygulamayı Aç</a>
   </div>
   <script>
     (function () {
@@ -80,6 +81,18 @@
       var sub1 = document.getElementById('sub1');
       var sub2 = document.getElementById('sub2');
       var badge = document.getElementById('badge');
+      var openAppBtn = document.getElementById('openAppBtn');
+      // Bkz. bulunan hata: "uygulamaya dönünce şifre sıfırlama açılmalı ama açılmıyor" — bu sayfa
+      // sadece bilgilendirici bir metin gösteriyordu, uygulamayı GERÇEKTEN açmayı denemiyordu.
+      // Supabase normalde `lore://reset-password#...` adresine doğrudan yönlendirir (bkz.
+      // services/auth.ts, resetPasswordForEmail'e verilen redirectTo) — bu sayfa SADECE o adres
+      // bir şekilde ulaşılamadığında (ör. Expo Go'da `exp://` üretildiği için izin listesinde
+      // olmaması, ya da token süresi dolmuşsa) devreye giriyor. Burada hash'teki token'ları
+      // KORUYARAK uygulamanın özel adresine (lore://reset-password) yönlendirme deneniyor —
+      // gerçek bir build'de (TestFlight/APK) bu uygulamayı doğrudan açar; Expo Go'da `lore://`
+      // şeması hiç kayıtlı olmadığı için (bkz. CLAUDE.md Bölüm 37) bu adım orada çalışmaz, sadece
+      // gerçek build'de test edilebilir.
+      var appUrl = 'lore://reset-password' + (location.hash || '');
 
       if (error) {
         badge.style.background = '#e05252';
@@ -95,8 +108,13 @@
         }
       } else if (type === 'recovery') {
         title.textContent = 'Şifre sıfırlama onaylandı';
-        sub1.textContent = 'Lore uygulamasına dönüp yeni şifreni belirleyebilirsin.';
-        sub2.textContent = 'Password reset confirmed. You can return to the Lore app to set your new password.';
+        sub1.textContent = 'Aşağıdaki butona dokunup uygulamaya dön, yeni şifreni orada belirleyebilirsin.';
+        sub2.textContent = 'Tap the button below to return to the Lore app and set your new password.';
+        openAppBtn.style.display = 'inline-block';
+        openAppBtn.href = appUrl;
+        // Yumuşak bir otomatik deneme — bazı tarayıcılar kullanıcı etkileşimi olmadan özel
+        // adreslere yönlendirmeyi engelleyebilir, bu yüzden buton her zaman asıl yol.
+        setTimeout(function () { window.location.href = appUrl; }, 400);
       }
     })();
   </script>
